@@ -83,4 +83,9 @@ export const players = [
     name: "NX BLADE",
     image: blade,
   },
+  {
+    id: "NX013",
+    name: "NX DEVIL",
+    image: null,
+  },
 ];
