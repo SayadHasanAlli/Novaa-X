@@ -2,9 +2,10 @@ import { useGuild } from "../context/GuildContext";
 
 function TopPerformers() {
   const { guildPlayers, playerStats } = useGuild();
+  const MIN_MATCHES = 15
 
   const topPerformers = [...playerStats]
-    .filter((player) => player.matches >= 10)
+    .filter((player) => player.matches >= MIN_MATCHES)
     .map((player) => ({
       ...player,
       average: player.kills / player.matches,
@@ -28,7 +29,7 @@ function TopPerformers() {
         </h2>
 
         <p className="text-xs text-gray-400">
-          Minimum 10 Matches Required
+          Minimum {MIN_MATCHES} Matches Required to <span className="text-blue-500">#Rank</span>
         </p>
       </div>
 

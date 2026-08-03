@@ -8,7 +8,7 @@ function GuildStats() {
       icon: "👥",
     },
     {
-      value: "36+",
+      value: "50+",
       title: "Match Results",
       icon: "⚔️",
     },

@@ -28,12 +28,12 @@ function Matches() {
 
       <div className="mb-6 rounded-xl bg-[#0B1220] border border-sky-500/20 p-4 text-center">
 
-        <p className="text-white/60 text-sm">
-          Total Matches
-        </p>
-
         <h2 className="text-3xl font-bold text-white">
-          {matches.length}
+          Total Matches {matches.length + 50}
+        </h2>
+
+        <h2 className="text-xl mt-3 font-bold text-blue-400">
+          Top {matches.length} Recent Matches
         </h2>
 
       </div>

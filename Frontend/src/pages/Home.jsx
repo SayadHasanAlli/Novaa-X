@@ -2,32 +2,9 @@ import hero from "../assets/hero.png";
 import GuildStats from "../components/GuildStats";
 import TopPerformers from "../components/TopPerformers";
 import { GUILD } from "../data/config";
-import { useEffect } from "react";
-import api from "../api/api.js";
 
 
 function Home() {
-  useEffect(() => {
-
-        async function testBackend() {
-
-            try {
-
-                const res = await api.get("/matches/");
-
-                console.log(res.data);
-
-            } catch (err) {
-
-                console.error(err);
-
-            }
-
-        }
-
-        testBackend();
-
-    }, []);
   return (
     <main className="bg-[#05070D] text-white min-h-screen">
 
