@@ -7,23 +7,25 @@ function Leaderboard() {
   const { guildPlayers, playerStats } = useGuild();
   const MIN_MATCHES = 15
 
-  const leaderboard = [...playerStats]
-    .map((player) => ({
-      ...player,
-      average: player.kills / player.matches,
-    }))
-    .sort((a, b) => { //sorting algo taken from internet
-      const aEligible = a.matches >= MIN_MATCHES;
-      const bEligible = b.matches >= MIN_MATCHES;
+const leaderboard = [...playerStats]
+  .map((player) => ({
+    ...player,
+    average: player.matches > 0 ? player.kills / player.matches : 0,
+  }))
+  .sort((a, b) => {
+    const aEligible = a.matches >= MIN_MATCHES;
+    const bEligible = b.matches >= MIN_MATCHES;
 
-      if (aEligible !== bEligible) {
-        return bEligible - aEligible;
-      }
+    // Eligible players always first
+    if (aEligible !== bEligible) {
+      return bEligible - aEligible;
+    }
 
-      if (!aEligible && !bEligible) {
-        return b.matches - a.matches;
-      }
-
+    // ============================
+    // OFFICIAL PLAYERS (15+)
+    // Average -> Kills -> Matches
+    // ============================
+    if (aEligible && bEligible) {
       if (b.average !== a.average) {
         return b.average - a.average;
       }
@@ -33,7 +35,26 @@ function Leaderboard() {
       }
 
       return b.matches - a.matches;
-    });
+    }
+
+    // ==================================
+    // DEVELOPING PLAYERS (<15)
+    // Matches -> Average -> Kills
+    // ==================================
+    if (b.matches !== a.matches) {
+      return b.matches - a.matches;
+    }
+
+    if (b.average !== a.average) {
+      return b.average - a.average;
+    }
+
+    if (b.kills !== a.kills) {
+      return b.kills - a.kills;
+    }
+
+    return 0;
+  });
 
     const leader = leaderboard[0]
 
