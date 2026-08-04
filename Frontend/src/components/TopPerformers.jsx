@@ -1,24 +1,48 @@
+import { useEffect, useState } from "react";
+import api from "../api/api.js";
 import { useGuild } from "../context/GuildContext";
+import TopOneCard from "./TopOneCard.jsx";
+import TopPodiumCard from "./TopPodiumCard.jsx";
+import TopPlayerListCard from "./TopPlayerListCard.jsx";
+
 
 function TopPerformers() {
-  const { guildPlayers, playerStats } = useGuild();
-  const MIN_MATCHES = 15
+  const { guildPlayers } = useGuild();
+  const [topPerformers, setTopPerformers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const topPerformers = [...playerStats]
-    .filter((player) => player.matches >= MIN_MATCHES)
-    .map((player) => ({
-      ...player,
-      average: player.kills / player.matches,
-    }))
-    .sort((a, b) => {
-      const avgDiff = b.average - a.average;
-      if (avgDiff !== 0) return avgDiff;
+  useEffect(() => {
 
-      if (b.kills !== a.kills) return b.kills - a.kills;
+      const fetchTopPerformance = async () => {
+          try {
+              const res = await api.get("/matches/top-performance");
+              const merged = res.data.map((player) => {
+                  const profile = guildPlayers.find(
+                      p => p.name === player.player_id
+                  );
+                  return {
+                      ...player,
+                      image: profile?.image
+                  };
+              });
+              setTopPerformers(merged);
+          }
+          catch (err) {
+              console.log(err);
+          }
+          finally {
+              setLoading(false);
+          }
+      };
 
-      return b.matches - a.matches;
-    })
-    .slice(0, 4);
+      if (guildPlayers.length > 0) {
+          fetchTopPerformance();
+      }
+  }, [guildPlayers]);
+
+  if (loading || guildPlayers.length === 0) {
+      return <p className="text-center mt-3 mb-3">Loading...</p>;
+  }
 
   return (
     <section className="px-5 mt-10">
@@ -29,117 +53,41 @@ function TopPerformers() {
         </h2>
 
         <p className="text-xs text-gray-400">
-          Minimum {MIN_MATCHES} Matches Required to <span className="text-blue-500">#Rank</span>
+            Based on Last
+            <span className="text-blue-500">
+                {" "}5 Matches
+            </span>
         </p>
+
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <TopOneCard player={topPerformers[0]} />
 
-        {topPerformers.map((player, index) => {
+      <div className="grid grid-cols-2 gap-4 mt-4">
 
-          const profile = guildPlayers.find(
-            (p) => p.id === player.playerId
-          );
+        {topPerformers.slice(1, 3).map((player, index) => (
 
-          return (
+          <TopPodiumCard
+            key={player.player_id}
+            player={player}
+            rank={index + 2}
+          />
 
-            <div
-              key={player.playerId}
-              className="relative overflow-hidden rounded-2xl border border-sky-500/20 bg-[#09111E] h-[210px]"
-            >
+        ))}
 
-              {/* Glow */}
+      </div>
 
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-transparent to-transparent" />
+      <div className="mt-4 space-y-3">
 
-              {/* Player Image */}
+        {topPerformers.slice(3).map((player, index) => (
 
-              {profile?.image && (
-                <img
-                  src={profile.image}
-                  alt={player.name}
-                  className="
-                    absolute
-                    right-0
-                    h-[95%]
-                    object-contain
-                    opacity-100
-                    pointer-events-none
-                    select-none
-                  "
-                />
-              )}
+          <TopPlayerListCard
+            key={player.player_id}
+            player={player}
+            rank={index + 4}
+          />
 
-              {/* Left Shadow */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#09111E] via-[#09111E]/20 to-transparent" />
-
-              {/* Content */}
-
-              <div className="relative z-10 p-4 flex flex-col h-full">
-
-                <div className="flex justify-between items-center">
-
-                  <div className="w-8 h-8 rounded-full bg-sky-500/15 flex items-center justify-center border border-sky-500/30">
-
-                    <span className="text-sm font-bold text-white">
-                      #{index + 1}
-                    </span>
-
-                  </div>
-
-                  <div className="px-3 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/20">
-
-                    <span className="text-yellow-400 font-bold text-sm">
-                      {player.average.toFixed(2)}
-                    </span>
-
-                  </div>
-
-                </div>
-
-                <div className="mt-5">
-
-                  <h3 className="text-white text-l font-bold leading-tight">
-                    {player.name}
-                  </h3>
-
-                </div>
-
-                <div className="mt-4 space-y-1 text-sm">
-
-                  <div className="text-gray-300">
-                    Kills :
-                    <span className="text-yellow-400 font-semibold">
-                      {" "}
-                      {player.kills}
-                    </span>
-                  </div>
-
-                  <div className="text-gray-300">
-                    Matches :
-                    <span className="text-sky-400 font-semibold">
-                      {" "}
-                      {player.matches}
-                    </span>
-                  </div>
-
-                  <div className="text-gray-300">
-                    MVP :
-                    <span className="text-pink-400 font-semibold">
-                      {" "}
-                      {player.mvp}
-                    </span>
-                  </div>
-
-                </div>
-
-
-              </div>
-
-            </div>
-
-          );
-        })}
+        ))}
 
       </div>
 

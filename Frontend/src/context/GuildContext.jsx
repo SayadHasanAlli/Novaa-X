@@ -5,6 +5,7 @@ import { players } from "../data/players";
 import { matches as initialMatches } from "../data/matches";
 import { playerStats as initialPlayerStats } from "../data/playerStats";
 
+
 const GuildContext = createContext();
 
 export function GuildProvider({ children }) {
@@ -33,32 +34,26 @@ export function GuildProvider({ children }) {
 
   const [playerStats, setPlayerStats] = useState(mergedPlayerStats);
   const [matches, setMatches] = useState(initialMatches);
+  const [loading,setLoading] = useState(false)
+
 
   useEffect(() => {
 
         async function fetchMatches() {
             try {
-
                 const res = await api.get("/matches/");
-
                 setMatches(res.data);
 
             } catch (error) {
-
                 console.error(error);
-
             }
-
         }
 
         async function fetchLeaderboard() {
-
+            setLoading(true)
             try {
-
                 const res = await api.get("/matches/leaderboard");
-
                 const mergedData = res.data.map((stat) => {
-
                     const profile = guildPlayers.find(
                         (player) => player.name === stat.player_id
                     );
@@ -74,15 +69,11 @@ export function GuildProvider({ children }) {
                     };
 
                 });
-
                 setPlayerStats(mergedData);
-
+                setLoading(false)
             } catch (error) {
-
                 console.error(error);
-
             }
-
         }
 
         fetchLeaderboard();
@@ -96,6 +87,8 @@ export function GuildProvider({ children }) {
     <GuildContext.Provider
       value={{
         guildPlayers,
+
+        loading,
 
         playerStats,
         setPlayerStats,

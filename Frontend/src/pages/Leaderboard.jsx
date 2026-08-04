@@ -4,14 +4,14 @@ import { useState } from "react";
 
 
 function Leaderboard() {
-  const { guildPlayers, playerStats } = useGuild();
-  const MIN_MATCHES = 15
+  const { guildPlayers, playerStats, loading } = useGuild();
+  const MIN_MATCHES = 25
 
-const leaderboard = [...playerStats]
-  .map((player) => ({
-    ...player,
-    average: player.matches > 0 ? player.kills / player.matches : 0,
-  }))
+  const leaderboard = [...playerStats]
+    .map((player) => ({
+      ...player,
+      average: player.matches > 0 ? player.kills / player.matches : 0,
+    }))
   .sort((a, b) => {
     const aEligible = a.matches >= MIN_MATCHES;
     const bEligible = b.matches >= MIN_MATCHES;
@@ -81,7 +81,6 @@ const leaderboard = [...playerStats]
 
     const [selectedPlayer, setSelectedPlayer] = useState(null);
 
-
   return (
     <section className="px-4 py-8">
 
@@ -141,14 +140,22 @@ const leaderboard = [...playerStats]
 
       </div>
 
-     {/* popup window */}
+      
      
 
       {/* Players */}
 
       <div className="mt-3 space-y-3">
 
-        {leaderboard.map((player, index) => {
+        {loading ? (
+          <div className="py-12 flex flex-col items-center">
+            <div className="w-10 h-10 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="mt-4 text-sky-400">
+              Loading Leaderboard...
+            </p>
+          </div>
+        ):(
+          leaderboard.map((player, index) => {
 
           const profile = guildPlayers.find(
             (p) => p.id === player.playerId
@@ -245,7 +252,7 @@ const leaderboard = [...playerStats]
 
           );
 
-        })}
+        }))}
 
       </div>
 
