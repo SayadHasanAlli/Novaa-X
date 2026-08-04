@@ -7,6 +7,9 @@ from app.models.match import Match
 from app.models.player_stat import PlayerStat
 from app.schemas.match import MatchCreate
 
+from app.schemas.top_performance import TopPerformance
+from app.services.performance_service import get_top_performance
+
 router = APIRouter(
     prefix="/matches",
     tags=["Matches"]
@@ -113,3 +116,11 @@ def get_matches(
     )
 
     return matches
+
+
+@router.get(
+    "/top-performance",
+    response_model=list[TopPerformance]
+)
+def top_performance(db: Session = Depends(get_db)):
+    return get_top_performance(db)
