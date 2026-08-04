@@ -1,15 +1,16 @@
 import drax from "../assets/players/nx-drax.png";
 import zenin from "../assets/players/nx-zenin.png";
 import flex from "../assets/players/nx-flex.png";
-// import venoom from "../assets/players/nx-venoom.png";
-// import voidPlayer from "../assets/players/nx-void.png";
-// import toji from "../assets/players/nx-toji.png";
+import venoom from "../assets/players/nx-venoom.png";
+import voidPlayer from "../assets/players/nx-void.png";
+import toji from "../assets/players/nx-toji.png";
 import alli from "../assets/players/nx-alli.png";
 // import raheman from "../assets/players/nx-raheman.png";
-// import gojo from "../assets/players/nx-gojo.png";
+import gojo from "../assets/players/nx-gojo.png";
 // import sidhu from "../assets/players/nx-sidhu.png";
-// import snax from "../assets/players/nx-snax.png";
+import snax from "../assets/players/nx-snax.png";
 import blade from "../assets/players/nx-blade.png";
+import devil from "../assets/players/nx-devil.png";
 
 export const players = [
   {
@@ -33,19 +34,19 @@ export const players = [
   {
     id: "NX004",
     name: "NX VENOOM",
-    image: null,
+    image: venoom,
   },
 
   {
     id: "NX005",
     name: "NX VOID",
-    image: null,
+    image: voidPlayer,
   },
 
   {
     id: "NX006",
     name: "NX TOJI",
-    image: null,
+    image: toji,
   },
 
   {
@@ -63,7 +64,7 @@ export const players = [
   {
     id: "NX009",
     name: "NX GOJO",
-    image: null,
+    image: gojo,
   },
 
   {
@@ -75,7 +76,7 @@ export const players = [
   {
     id: "NX011",
     name: "NX SNAX",
-    image: null,
+    image: snax,
   },
 
   {
@@ -86,6 +87,6 @@ export const players = [
   {
     id: "NX013",
     name: "NX DEVIL",
-    image: null,
+    image: devil,
   },
 ];
