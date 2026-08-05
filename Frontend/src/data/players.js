@@ -5,9 +5,9 @@ import venoom from "../assets/players/nx-venoom.png";
 import voidPlayer from "../assets/players/nx-void.png";
 import toji from "../assets/players/nx-toji.png";
 import alli from "../assets/players/nx-alli.png";
-// import raheman from "../assets/players/nx-raheman.png";
+import raheman from "../assets/players/nx-raheman.png";
 import gojo from "../assets/players/nx-gojo.png";
-// import sidhu from "../assets/players/nx-sidhu.png";
+import sidhu from "../assets/players/nx-sidhu.png";
 import snax from "../assets/players/nx-snax.png";
 import blade from "../assets/players/nx-blade.png";
 import devil from "../assets/players/nx-devil.png";
@@ -58,7 +58,7 @@ export const players = [
   {
     id: "NX008",
     name: "NX RAHEMAN",
-    image: null,
+    image: raheman,
   },
 
   {
@@ -70,7 +70,7 @@ export const players = [
   {
     id: "NX010",
     name: "NX SIDHU",
-    image: null,
+    image: sidhu,
   },
 
   {

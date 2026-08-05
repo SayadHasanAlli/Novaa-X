@@ -9,13 +9,14 @@ function TopOneCard({ player }) {
         rounded-3xl
         h-[280px]
         border
-        border-yellow-400/40
+        border-yellow-400
         bg-gradient-to-br
         from-yellow-300/15
         via-[#09111E]
         to-amber-700/20
         shadow-lg
-        shadow-yellow-500/10
+        shadow-yellow-500/40
+        
       "
     >
       {/* Glow */}
@@ -29,6 +30,7 @@ function TopOneCard({ player }) {
           className="
             absolute
             right-0
+            left-20
             bottom-0
             h-[92%]
             object-contain
@@ -40,7 +42,7 @@ function TopOneCard({ player }) {
       )}
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#09111E] via-[#09111E]/70 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#09111E] via-[#09111E]/50 to-transparent" />
 
       {/* Crown */}
       <div className="absolute top-4 right-4 text-3xl">
@@ -51,7 +53,7 @@ function TopOneCard({ player }) {
       <div className="relative z-10 flex flex-col justify-between h-full p-6">
 
         {/* Rank */}
-        <div>
+        <div className="mb-2">
 
           <div className="
             inline-flex
@@ -65,7 +67,7 @@ function TopOneCard({ player }) {
             border-yellow-300/40
           ">
 
-            <span className="text-yellow-300 font-bold">
+            <span className="text-yellow-300 blink-smooth font-bold">
               #1 TOP PLAYER
             </span>
 
@@ -100,9 +102,9 @@ function TopOneCard({ player }) {
         </div>
 
         {/* Bottom Stats */}
-        <div className="flex justify-between w-[180px]">
+        <div className="flex gap-5 w-[180px] mt-2">
 
-          <div>
+          <div className="flex flex-col justify-center items-center">
             <p className="text-gray-400 text-sm">
               Total Kills
             </p>

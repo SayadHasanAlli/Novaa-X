@@ -48,11 +48,11 @@ function TopPerformers() {
     <section className="px-5 mt-10">
 
       <div className="mb-5">
-        <h2 className="text-2xl font-bold text-white tracking-wide">
+        <h2 className="text-2xl text-center font-bold text-white tracking-wide">
           TOP PERFORMERS
         </h2>
 
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-center text-gray-400">
             Based on Last
             <span className="text-blue-500">
                 {" "}5 Matches

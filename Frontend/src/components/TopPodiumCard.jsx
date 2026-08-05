@@ -5,8 +5,8 @@ function TopPodiumCard({ player, rank }) {
   const isSecond = rank === 2;
 
   const gradient = isSecond
-    ? "from-slate-300/20 via-[#09111E] to-slate-700/20 border-slate-300/30"
-    : "from-orange-300/20 via-[#09111E] to-orange-800/20 border-orange-400/30";
+    ? "from-slate-300/70 via-[#09111E] to-slate-700/20 border-slate-300/60"
+    : "from-orange-300/70 via-[#09111E] to-orange-800/20 border-orange-400/60";
 
   const badge = isSecond ? "🥈" : "🥉";
 
@@ -50,8 +50,10 @@ function TopPodiumCard({ player, rank }) {
           className="
             absolute
             right-0
+            left-8
             bottom-0
-            h-[92%]
+            h-[90%]
+            scale-110
             object-contain
             pointer-events-none
             select-none
@@ -62,22 +64,16 @@ function TopPodiumCard({ player, rank }) {
 
       {/* Overlay */}
 
-      <div className="absolute inset-0 bg-gradient-to-r from-[#09111E] via-[#09111E]/70 to-transparent" />
-
-      {/* Content */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#09111E] via-[#09111E]/50 to-transparent" />
 
       <div className="relative z-10 p-4 flex flex-col justify-between h-full">
 
-        {/* Rank */}
 
         <div className="flex justify-between items-center">
 
           <span className="text-2xl">
-
             {badge}
-
           </span>
-
           <span
             className={`
               text-xs
@@ -91,67 +87,38 @@ function TopPodiumCard({ player, rank }) {
                 : "border-orange-300/30 text-orange-300"}
             `}
           >
-
             #{rank}
-
           </span>
-
         </div>
 
-        {/* Name */}
 
         <div>
-
           <h3 className="text-white font-bold text-lg">
-
             {player.player_id}
-
           </h3>
-
         </div>
-
-        {/* Average */}
 
         <div>
-
           <div className={`text-3xl font-black ${avgColor}`}>
-
             {player.average.toFixed(2)}
-
           </div>
-
           <div className="text-[10px] uppercase tracking-widest text-gray-400">
-
             Average
-
           </div>
-
         </div>
 
-        {/* Bottom */}
 
         <div className="text-xs text-gray-300">
-
           <span className="text-white font-semibold">
-
             {player.kills}
-
           </span>
-
           {" "}Kills
-
           {" • "}
-
           ⭐
-
           <span className="text-pink-400 font-semibold">
-
             {" "}{player.mvp}
-
           </span>
-
         </div>
-
       </div>
 
     </div>

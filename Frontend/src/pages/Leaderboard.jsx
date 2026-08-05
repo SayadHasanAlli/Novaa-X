@@ -22,7 +22,7 @@ function Leaderboard() {
     }
 
     // ============================
-    // OFFICIAL PLAYERS (15+)
+    // OFFICIAL PLAYERS (25+)
     // Average -> Kills -> Matches
     // ============================
     if (aEligible && bEligible) {
@@ -63,7 +63,7 @@ function Leaderboard() {
 
       const leaderAvg = leader.kills / leader.matches;
 
-      let futureMatches = player.matches < 15 ? 15 - player.matches : 1;
+      let futureMatches = player.matches < 25 ? 25 - player.matches : 1;
 
       while (true) {
         
@@ -284,8 +284,8 @@ function Leaderboard() {
             <p className="text-gray-400 text-sm">
               Assuming 10 Kills Per Match
             </p>
-            <p className="text-gray-400 text-sm">
-              if your kills more then 10 then match number decreases !!
+            <p className="text-gray-400 mt-3 text-sm">
+              need {(selectedPlayer.needMatch)*10} kills in {selectedPlayer.needMatch} matches to reach/dominate #rank1
             </p>
           </div>
         </div>
