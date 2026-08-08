@@ -7,7 +7,7 @@ function TopOneCard({ player }) {
         relative
         overflow-hidden
         rounded-3xl
-        h-[280px]
+        h-[310px]
         border
         border-yellow-400
         bg-gradient-to-br
@@ -30,7 +30,7 @@ function TopOneCard({ player }) {
           className="
             absolute
             right-0
-            left-20
+            left-16
             bottom-0
             h-[92%]
             object-contain
@@ -121,6 +121,11 @@ function TopOneCard({ player }) {
               {player.mvp}
             </p>
           </div>
+        </div>
+        <div>
+            <p>
+              <span className="text-green-400 blink-smooth">NEXT</span> : {player.recent_matches[4].kills + 2}+ kills ➜ <span className="text-yellow-300">Maintain</span>
+            </p>
         </div>
 
       </div>

@@ -1,6 +1,11 @@
-function TopPlayerListCard({ player, rank }) {
+function TopPlayerListCard({ player, rank , topPlayerKills}) {
 
   if (!player) return null;
+
+  const fifthMatchKills = player.recent_matches[4].kills;
+  const currentKillsAfterDrop = player.kills - fifthMatchKills;
+  const nextKills = topPlayerKills - currentKillsAfterDrop + 1;
+
 
   return (
 
@@ -77,6 +82,9 @@ function TopPlayerListCard({ player, rank }) {
 
             {player.kills} Kills • ⭐ {player.mvp} MVP
 
+          </p>
+          <p className="text-[11px]">
+            <span className="text-green-400 blink-smooth" >NEXT MATCH : </span> {nextKills}+ kills ➜ <span className="text-yellow-300 text-[12px]">#1</span>
           </p>
 
         </div>

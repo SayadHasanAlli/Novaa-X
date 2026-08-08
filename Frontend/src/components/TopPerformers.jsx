@@ -9,6 +9,7 @@ import TopPlayerListCard from "./TopPlayerListCard.jsx";
 function TopPerformers() {
   const { guildPlayers } = useGuild();
   const [topPerformers, setTopPerformers] = useState([]);
+  const [topPlayerKills,setTopPlayerKills] = useState(0)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,6 +27,10 @@ function TopPerformers() {
                   };
               });
               setTopPerformers(merged);
+              setTopPlayerKills(merged[0]?.kills ?? 0);
+
+              
+
           }
           catch (err) {
               console.log(err);
@@ -39,6 +44,8 @@ function TopPerformers() {
           fetchTopPerformance();
       }
   }, [guildPlayers]);
+
+
 
   if (loading || guildPlayers.length === 0) {
       return <p className="text-center mt-3 mb-3">Loading...</p>;
@@ -71,6 +78,7 @@ function TopPerformers() {
             key={player.player_id}
             player={player}
             rank={index + 2}
+            topPlayerkills = {topPlayerKills}
           />
 
         ))}
@@ -85,6 +93,7 @@ function TopPerformers() {
             key={player.player_id}
             player={player}
             rank={index + 4}
+            topPlayerKills = {topPlayerKills}
           />
 
         ))}
